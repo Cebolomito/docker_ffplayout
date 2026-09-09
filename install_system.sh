@@ -35,7 +35,7 @@ mkdir -p /var/lib/ffplayout /usr/share/ffplayout/public /etc/ffplayout
 chmod -R 777 /var/lib/ffplayout /usr/share/ffplayout/public /etc/ffplayout
 
 echo "=== 5. Subindo o Container ffplayout (Modo CPU) ==="
-if [ -f "/usr/local/src/docker_compose.yml" ]; then
+if [ -f "/usr/local/src/ffplayout/docker_compose.yml" ]; then
     docker compose -f /usr/local/src/docker_compose.yml up -d
 else
     echo "⚠️ Arquivo não encontrado em /usr/local/src/docker_compose.yml"
