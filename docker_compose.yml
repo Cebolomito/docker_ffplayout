@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  proxy:
+    image: ghcr.io/cebolomito/ffplayout:latest
+    container_name: ffplayout_app
+    restart: always
+    environment:
+      - TZ=America/Sao_Paulo
+      - container=docker
+    stop_signal: SIGRTMIN+3
+    cap_add:
+       - SYS_ADMIN 
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/lib/ffplayout:/var/lib/ffplayout
+      - /usr/share/ffplayout/public:/usr/share/ffplayout/public
+      - /dev/shm:/var/www/html/live:rw
+    ports:
+      - '21987:22'
+      - '80:80'
+      - '8787:8787'
+      - '180:180'
+    stdin_open: true
+    tty: true
+    networks:
+      network:
+        ipv4_address: 172.22.0.2
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/30
